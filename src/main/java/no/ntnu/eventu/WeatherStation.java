@@ -30,8 +30,10 @@ public class WeatherStation {
     String windSpeed;
     String clouds;
     int windDirection;
+    int feltTemp;
     public String icon;
     private JSONObject jsonWeather;
+    String city;
 
 
     /**
@@ -65,31 +67,26 @@ public class WeatherStation {
 
         JSONObject json = new JSONObject();
         JSONObject jsonObject;
-
-
         try {
             json = getJson("http://api.openweathermap.org/data/2.5/weather?zip=" + locationZipCode + "," + "no" + "&appid=" + API_KEY + "&units=metric" + "&lang=no");
         }catch (IOException ignored){
         }
         jsonObject = json.getJSONObject("main");
         this.temp = jsonObject.getInt("temp");
+        this.feltTemp = jsonObject.getInt("feels_like");
         jsonObject = json.getJSONObject("wind");
         this.windSpeed = jsonObject.get("speed").toString();
         this.windDirection = jsonObject.getInt("deg");
         jsonObject = json.getJSONObject("clouds");
         this.clouds = jsonObject.get("all").toString();
 
-
+        this.city = json.get("name").toString();
 
 
         jsonObject = json.getJSONArray("weather").getJSONObject(0);
-        jsonWeather = json.getJSONArray("weather").getJSONObject(0);
+        //jsonWeather = json.getJSONArray("weather").getJSONObject(0);
         this.description = jsonObject.get("description").toString();
         this.icon = jsonObject.get("icon").toString();
-
-
-
-
     }
 
     public void setIcon(String icon) {
@@ -98,8 +95,16 @@ public class WeatherStation {
 
     public String getIcon(){
         return this.icon;
-
     }
+
+    public String getCity(){
+        return this.city;
+    }
+
+    public int getFeltTemp(){
+        return feltTemp;
+    }
+
 
     public int getTemp() {
         return temp;
@@ -117,12 +122,6 @@ public class WeatherStation {
     return getTemp() + "℃";
     }
 
-    /**
-     *
-
-    public void setWindDirection(){
-       this.windDirection = windDirection;
-    }  */
 
     public String getWindDirection(){
         if((windDirection <= 23 && windDirection >= 0)|| (337 <= windDirection && windDirection<= 360)){
