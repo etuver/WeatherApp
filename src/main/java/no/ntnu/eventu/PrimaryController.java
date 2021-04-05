@@ -25,22 +25,44 @@ public class PrimaryController {
 
 
     }
-
+    // general
     @FXML
     public Button getWeatherBtn;
-
     @FXML
     public TextField cityTextField;
-
     @FXML
-    public Label descriptionNowLbl, windNowLbl, tempNowLbl;
+    public Label todayDescriptionLabel;
+    @FXML
+    public Label cityLabel;
 
-    //@FXML
-    //public Label windNowLbl;
-    //@FXML
-    //public Label tempNowLbl;
+
+
+
+
+    //  Today
     @FXML
     public ImageView todayIcon;
+    @FXML
+    public Label todayTempLabel;
+    @FXML
+    public Label todayWindLabel;
+    @FXML
+    public Label todayFeltTempLabel;
+
+    //Tomorrow
+
+
+
+    // In two days
+
+
+    // In three days
+
+
+    // In four days
+
+
+
 
 
 
@@ -60,8 +82,6 @@ public class PrimaryController {
 
 
     private void getWeatherClicked(){
-
-        //if (cityTextField.getText().isBlank() || cityTextField.getText().isEmpty() || cityTextField.getText().equals("")){
         if(cityTextField.getText().equals("")){
             return;
         }else try {
@@ -74,23 +94,17 @@ public class PrimaryController {
     }
 
     private void showWeather() throws FileNotFoundException {
+        getTodayWeather();
+    }
 
-        //todayIcon.setImage(img);
-
-        //InputStream in = new FileInputStream(IconHandler.getWeatherIcon(weatherStation.getIcon()));
-        //InputStream in = getClass().getResourceAsStream("src/main/resources/no/ntnu/eventu/images/02d.png");
-        //InputStream stream = new FileInputStream(iconHandler.getWeatherIcon(weatherStation.getIcon())) ;
-        //Image image = new Image(in);
-
-
+    public void getTodayWeather(){
         weatherStation.getWeather();
-        descriptionNowLbl.setText(weatherStation.getDescription().toLowerCase());
-        tempNowLbl.setText(weatherStation.getTempString());
-        windNowLbl.setText(weatherStation.getWindDescription());
-        //todayIcon.setImage(image);
-        System.out.println(weatherStation.getIcon());
+        todayDescriptionLabel.setText(weatherStation.getDescription().toLowerCase());
+        todayFeltTempLabel.setText("Føles som "+weatherStation.feltTemp + "℃");
+        todayTempLabel.setText(weatherStation.getTempString());
+        todayWindLabel.setText(weatherStation.getWindDescription());
         todayIcon.setImage(new Image(getClass().getResourceAsStream("/images/" + weatherStation.getIcon()  +".png")));
-        //this.getClass().getResourceAsStream("src/main/resources/no/ntnu/eventu/images/04n.png");
+        cityLabel.setText("Viser været for "+weatherStation.getCity());
     }
 
 
