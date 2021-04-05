@@ -3,7 +3,7 @@ public class IconHandler {
 
     /**
      * redundant class but keeping for future
-     * @param icon takes the icon 
+     * @param icon takes the icon
      * @return returns path to the icon as a string
      */
     public static String getWeatherIcon(String icon){
