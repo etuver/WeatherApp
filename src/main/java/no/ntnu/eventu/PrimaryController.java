@@ -18,6 +18,7 @@ public class PrimaryController {
 
     WeatherStation weatherStation;
     private String locationZipCode;
+    TomorrowForecast tomorrowForecast;
 
     public PrimaryController() throws IOException {
         //WeatherStation weatherStation;
@@ -87,17 +88,19 @@ public class PrimaryController {
         }else try {
             this.locationZipCode = cityTextField.getText();
             weatherStation = new WeatherStation(locationZipCode);
+            tomorrowForecast = new TomorrowForecast(locationZipCode);
             showWeather();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    private void showWeather() throws FileNotFoundException {
+    private void showWeather() throws IOException {
         getTodayWeather();
+        //getForecast();
     }
 
-    public void getTodayWeather(){
+    public void getTodayWeather() throws IOException {
         weatherStation.getWeather();
         todayDescriptionLabel.setText(weatherStation.getDescription().toLowerCase());
         todayFeltTempLabel.setText("Føles som "+weatherStation.feltTemp + "℃");
@@ -105,8 +108,13 @@ public class PrimaryController {
         todayWindLabel.setText(weatherStation.getWindDescription());
         todayIcon.setImage(new Image(getClass().getResourceAsStream("/images/" + weatherStation.getIcon()  +".png")));
         cityLabel.setText("Viser været for "+weatherStation.getCity());
+
+        System.out.println("test"+tomorrowForecast.getTomorrowTemp());
     }
 
+    public void getForecast() throws IOException {
+        tomorrowForecast.getForecast();
+    }
 
 
 
