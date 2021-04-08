@@ -71,6 +71,11 @@
                         <Label fx:id="fourDescriptionLabel112" layoutX="682.0" layoutY="128.0" prefHeight="34.0" prefWidth="145.0" text="Label" />
                         <Label fx:id="todayLabel112" layoutX="686.0" layoutY="22.0" prefHeight="26.0" prefWidth="137.0" text="Været om fire dager" />
                         <ImageView fx:id="fourDaysIcon" fitHeight="67.0" fitWidth="143.0" layoutX="683.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="currentTime" layoutX="29.0" layoutY="361.0" prefHeight="26.0" prefWidth="137.0" text="Været i dag" />
+                        <Label fx:id="day2TimeLabel" layoutX="196.0" layoutY="361.0" prefHeight="26.0" prefWidth="137.0" text="Været i dag" />
+                        <Label fx:id="day3TimeLabel" layoutX="387.0" layoutY="361.0" prefHeight="26.0" prefWidth="137.0" text="Været i dag" />
+                        <Label fx:id="day4TimeLabel" layoutX="532.0" layoutY="361.0" prefHeight="26.0" prefWidth="137.0" text="Været i dag" />
+                        <Label fx:id="day5TimeLabel" layoutX="682.0" layoutY="361.0" prefHeight="26.0" prefWidth="137.0" text="Været i dag" />
                      </children>
                   </AnchorPane>
                </center>

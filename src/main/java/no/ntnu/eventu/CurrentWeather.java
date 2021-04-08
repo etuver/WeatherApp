@@ -37,6 +37,7 @@ public class CurrentWeather {
 
     //JSONObject currentWeather = (JSONObject) jsonParser.parse(reader);
 
+    //Empty
     public CurrentWeather(String text) throws IOException, ParseException {
     }
 
@@ -73,6 +74,7 @@ public class CurrentWeather {
         ZonedDateTime zdt = instant.atZone(z);
         LocalDateTime localTime = zdt.toLocalDateTime();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        this.time = localTime.format(formatter);
     }
 
 
