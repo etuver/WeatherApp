@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class Forecast {
 
@@ -78,7 +79,8 @@ public class Forecast {
 
     //List with all days
     JSONArray list;
-
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    ZoneId z = ZoneId.of("Europe/Oslo");
 
     //Empty
     public Forecast(String zipCode){
@@ -103,10 +105,9 @@ public class Forecast {
         list = (JSONArray) jsonObject.get("list");
     }
 
-    public void setday1(){
+    public void setday2(){
         LocalDateTime today = LocalDateTime.now();
         LocalDateTime tomorrow = today.plusDays(1).withHour(14).withMinute(0).withSecond(0).withNano(0);
-        ZoneId z = ZoneId.of("Europe/Oslo");
         long tomorrowAsEpoch = tomorrow.atZone(z).toEpochSecond();
         for (Object o : list){
             JSONObject forecast = (JSONObject) o;
@@ -123,10 +124,86 @@ public class Forecast {
                 JSONObject windObject = (JSONObject) forecast.get("wind");
                 day2WindSpeed = Double.parseDouble(String.valueOf(windObject.get("speed")));
                 day2WindDirection = Integer.parseInt(String.valueOf(windObject.get("deg")));
+                day2Time = String.format(day2Dt_txt, formatter);
             }
 
 
         }
+    }
+
+    public void setDay3(){
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime day3 = today.plusDays(2).withHour(14).withMinute(0).withSecond(0).withNano(0);
+        long day3AsEpoch = day3.atZone(z).toEpochSecond();
+        for (Object o: list){
+            JSONObject forecast = (JSONObject) o;
+            long dtt = (long) forecast.get("dt");
+            if (dtt == day3AsEpoch){
+                JSONObject main = (JSONObject) forecast.get("main");
+                JSONArray weather = (JSONArray) forecast.get("weather");
+                JSONObject weatherForecast = (JSONObject) weather.get(0);
+                JSONObject windObject = (JSONObject) forecast.get("wind");
+                day3Dt_txt = (String) forecast.get("dt_txt");
+                day3Time = String.format(day3Dt_txt, formatter);
+                day3Temp = (double) main.get("temp");
+                day3FeltTemp = (double) main.get("feels_like");
+                day3Description = (String) weatherForecast.get("description");
+                day3Icon = (String) weatherForecast.get("icon");
+                day3WindSpeed = Double.parseDouble(String.valueOf(windObject.get("speed")));
+                day3WindDirection = Integer.parseInt(String.valueOf(windObject.get("deg")));
+            }
+        }
+    }
+
+
+
+    public void setDay4(){
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime day4 = today.plusDays(3).withHour(14).withMinute(0).withSecond(0).withNano(0);
+        long day4AsEpoch = day4.atZone(z).toEpochSecond();
+        for (Object o: list){
+            JSONObject forecast = (JSONObject) o;
+            long dtt = (long) forecast.get("dt");
+            if (dtt == day4AsEpoch){
+                JSONObject main = (JSONObject) forecast.get("main");
+                JSONArray weather = (JSONArray) forecast.get("weather");
+                JSONObject weatherForecast = (JSONObject) weather.get(0);
+                JSONObject windObject = (JSONObject) forecast.get("wind");
+                day4Dt_txt = (String) forecast.get("dt_txt");
+                day4Time = String.format(day4Dt_txt, formatter);
+                day4Temp = (double) main.get("temp");
+                day4FeltTemp = (double) main.get("feels_like");
+                day4Description = (String) weatherForecast.get("description");
+                day4Icon = (String) weatherForecast.get("icon");
+                day4WindSpeed = Double.parseDouble(String.valueOf(windObject.get("speed")));
+                day4WindDirection = Integer.parseInt(String.valueOf(windObject.get("deg")));
+            }
+        }
+    }
+
+    public void setDay5(){
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime day5 = today.plusDays(4).withHour(14).withMinute(0).withSecond(0).withNano(0);
+        long day5AsEpoch = day5.atZone(z).toEpochSecond();
+        for (Object o: list){
+            JSONObject forecast = (JSONObject) o;
+            long dtt = (long) forecast.get("dt");
+            if (dtt == day5AsEpoch){
+                JSONObject main = (JSONObject) forecast.get("main");
+                JSONArray weather = (JSONArray) forecast.get("weather");
+                JSONObject weatherForecast = (JSONObject) weather.get(0);
+                JSONObject windObject = (JSONObject) forecast.get("wind");
+                day5Dt_txt = (String) forecast.get("dt_txt");
+                day5Time = String.format(day4Dt_txt, formatter);
+                day5Temp = (double) main.get("temp");
+                day5FeltTemp = (double) main.get("feels_like");
+                day5Description = (String) weatherForecast.get("description");
+                day5Icon = (String) weatherForecast.get("icon");
+                day5WindSpeed = Double.parseDouble(String.valueOf(windObject.get("speed")));
+                day5WindDirection = Integer.parseInt(String.valueOf(windObject.get("deg")));
+            }
+        }
+
     }
 
 
