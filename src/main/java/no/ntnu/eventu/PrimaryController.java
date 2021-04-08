@@ -7,24 +7,20 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.json.simple.parser.ParseException;
 
 public class PrimaryController {
 
+    CurrentWeather currentWeather;
 
-    WeatherStation weatherStation;
-    private String locationZipCode;
-    TomorrowForecast tomorrowForecast;
 
     public PrimaryController() throws IOException {
-        //WeatherStation weatherStation;
-        //String locationZipCode;
-
-
     }
     // general
     @FXML
@@ -35,9 +31,6 @@ public class PrimaryController {
     public Label todayDescriptionLabel;
     @FXML
     public Label cityLabel;
-
-
-
 
 
     //  Today
@@ -71,9 +64,7 @@ public class PrimaryController {
 
     @FXML
     private void initialize(){
-
-
-    //descriptionLabel.setText("No weather");
+        cityLabel.setAlignment(Pos.CENTER);
     cityTextField.setText("7020");
     getWeatherBtn.setOnAction(actionEvent ->{
         getWeatherClicked();
@@ -86,34 +77,30 @@ public class PrimaryController {
         if(cityTextField.getText().equals("")){
             return;
         }else try {
-            this.locationZipCode = cityTextField.getText();
-            weatherStation = new WeatherStation(locationZipCode);
-            tomorrowForecast = new TomorrowForecast(locationZipCode);
+            currentWeather = new CurrentWeather(cityTextField.getText());
+            currentWeather.getCurrentWeather(cityTextField.getText());
             showWeather();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    private void showWeather() throws IOException {
+    private void showWeather() throws IOException, ParseException {
+        currentWeather.getCurrentWeather(cityTextField.getText());
         getTodayWeather();
-        //getForecast();
     }
 
-    public void getTodayWeather() throws IOException {
-        weatherStation.getWeather();
-        todayDescriptionLabel.setText(weatherStation.getDescription().toLowerCase());
-        todayFeltTempLabel.setText("Føles som "+weatherStation.feltTemp + "℃");
-        todayTempLabel.setText(weatherStation.getTempString());
-        todayWindLabel.setText(weatherStation.getWindDescription());
-        todayIcon.setImage(new Image(getClass().getResourceAsStream("/images/" + weatherStation.getIcon()  +".png")));
-        cityLabel.setText("Viser været for "+weatherStation.getCity());
-
-        System.out.println("test"+tomorrowForecast.getTomorrowTemp());
+    public void getTodayWeather() throws IOException, ParseException {
+        todayDescriptionLabel.setText(currentWeather.description.toLowerCase());
+        todayFeltTempLabel.setText("Føles som "+currentWeather.feltTemp + "℃");
+        todayTempLabel.setText(currentWeather.temp +"℃");
+        todayWindLabel.setText(currentWeather.windSpeed + "m/s fra "+ currentWeather.getWindDirection());
+        todayIcon.setImage(new Image(getClass().getResourceAsStream("/images/" + currentWeather.icon  +".png")));
+        cityLabel.setText("Viser været for "+currentWeather.city);
     }
 
     public void getForecast() throws IOException {
-        tomorrowForecast.getForecast();
+        //tomorrowForecast.getForecast();
     }
 
 

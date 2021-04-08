@@ -1,12 +1,8 @@
-module no.ntnu.eventu {
-    requires javafx.controls;
+module WeatherApp {
+    requires javafx.graphics;
     requires javafx.fxml;
-    requires gson;
-    requires okhttp3;
-    requires org.json;
-    requires org.junit.jupiter.api;
-    requires com.fasterxml.jackson.databind;
-    requires annotations;
+    requires json.simple;
+    requires javafx.controls;
 
     opens no.ntnu.eventu to javafx.fxml;
     exports no.ntnu.eventu;
