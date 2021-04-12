@@ -61,11 +61,11 @@ public class CurrentWeather {
         this.icon = ((String) thisweather.get("icon"));
         this.description = (String) thisweather.get("description");
         String mainTemp =  String.valueOf(main.get("temp")) ;
-        this.temp = Double.parseDouble(mainTemp);
-        this.feltTemp =(Double.parseDouble(String.valueOf(main.get("feels_like"))));
+        this.temp =Math.round(Double.parseDouble(mainTemp));
+        this.feltTemp =Math.round(Double.parseDouble(String.valueOf(main.get("feels_like"))));
         this.city = (String) currentWeather.get("name");
         JSONObject windObject = (JSONObject) currentWeather.get("wind");
-        this.windSpeed = Double.parseDouble(String.valueOf(windObject.get("speed")));
+        this.windSpeed = Math.round(Double.parseDouble(String.valueOf(windObject.get("speed"))));
         this.windDirection = Integer.parseInt(String.valueOf(windObject.get("deg")));
         //JSONObject windObject = (JSONObject) currentWeather.get("wind");
         //this.windSpeed = Integer.parseInt(String.valueOf(windObject.get("speed")));

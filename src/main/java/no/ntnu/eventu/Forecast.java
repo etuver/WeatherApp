@@ -103,6 +103,7 @@ public class Forecast {
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         JSONObject jsonObject = (JSONObject) jsonParser.parse(reader);
         list = (JSONArray) jsonObject.get("list");
+        reader.close();
     }
 
     public void setday2(){
@@ -203,6 +204,30 @@ public class Forecast {
                 day5WindDirection = Integer.parseInt(String.valueOf(windObject.get("deg")));
             }
         }
+
+    }
+
+
+
+    public String getWindDirection(int i){
+        if((i <= 23 && i >= 0)|| (337 <= i && i<= 360)){
+            return  "nord";
+        } else if ( i >= 24 && i <= 68){
+            return "Nordøst";
+        }else if (69 <= i && i <= 113){
+            return "Øst";
+        } else if (i >= 114 && i <=158){
+            return "Sørøst";
+        } else if (i >= 159 && i <= 203){
+            return "Sør";
+        } else if ( i >= 204 && i <= 248 ){
+            return "Sørvest";
+        } else if(i >= 249 && i <= 293){
+            return "Vest";
+        } else if (i >= 294 && i <= 336){
+            return "Norvest";
+        }
+        else return "";
 
     }
 

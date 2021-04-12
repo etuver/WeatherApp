@@ -43,6 +43,7 @@ public class PrimaryController {
     public Label day3TimeLabel;
     public Label day4TimeLabel;
     public Label day5TimeLabel;
+    public Label errorMessageLabel;
     CurrentWeather currentWeather;
     Forecast forecast;
 
@@ -97,8 +98,10 @@ public class PrimaryController {
 
     private void getWeatherClicked() {
         if (cityTextField.getText().equals("")) {
+            errorMessageLabel.setText("Skriv inn postnummer først");
             return;
         } else try {
+            errorMessageLabel.setText("");
             currentWeather = new CurrentWeather(cityTextField.getText());
             currentWeather.getCurrentWeather(cityTextField.getText());
             forecast = new Forecast(cityTextField.getText());
@@ -142,7 +145,7 @@ public class PrimaryController {
         tomorrowTempLabel.setText(forecast.day2Temp + "℃");
         tomorrowDescriptionLabel.setText(forecast.day2Description);
         tomorrowIcon.setImage(new Image(getClass().getResourceAsStream("/images/" + forecast.day2Icon + ".png")));
-        tomorrowWindLabel.setText(forecast.day2WindSpeed + "m/s fra ");
+        tomorrowWindLabel.setText(forecast.day2WindSpeed + "m/s fra "+ forecast.getWindDirection(forecast.day2WindDirection));
         day2TimeLabel.setText(forecast.day2Time);
     }
 
@@ -152,7 +155,7 @@ public class PrimaryController {
         twoDaysIcon.setImage(new Image(getClass().getResourceAsStream("/images/" + forecast.day3Icon + ".png")));
         twoDaysTempLabel.setText(forecast.day3Temp + "℃");
         twoDaysFeltTempLabel.setText("Føles som " + forecast.day3FeltTemp);
-        twoDaysWindLabel.setText(forecast.day2WindSpeed + "m/s fra ");
+        twoDaysWindLabel.setText(forecast.day2WindSpeed + "m/s fra "+forecast.getWindDirection(forecast.day3WindDirection));
 
     }
 
@@ -162,7 +165,7 @@ public class PrimaryController {
         threeDaysIcon.setImage(new Image(getClass().getResourceAsStream("/images/" + forecast.day4Icon + ".png")));
         threeDaysTempLabel.setText(forecast.day4Temp + "℃");
         threeDaysFeltTempLabel.setText("Føles som " + forecast.day4FeltTemp);
-        threeDaysWindLabel.setText(forecast.day4WindSpeed + "m/s fra ");
+        threeDaysWindLabel.setText(forecast.day4WindSpeed + "m/s fra "+ forecast.getWindDirection(forecast.day4WindDirection));
     }
 
 
@@ -172,8 +175,9 @@ public class PrimaryController {
         fourDaysIcon.setImage(new Image(getClass().getResourceAsStream("/images/" + forecast.day5Icon + ".png")));
         fourDaysTempLabel.setText(forecast.day5Temp + "℃");
         fourDaysFeltTempLabel.setText("Føles som " + forecast.day5FeltTemp);
-        fourDaysWindLabel.setText(forecast.day5WindSpeed + "m/s fra ");
+        fourDaysWindLabel.setText(forecast.day5WindSpeed + "m/s fra "+forecast.getWindDirection(forecast.day5WindDirection));
     }
+
 
 
 }
